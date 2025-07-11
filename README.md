@@ -8,8 +8,12 @@ With this tool, you can easily perform social search, academic search, X posts s
 
 
 Key changes are made to the follwoing files to add the advanced search features:
+
 *src/store/index.tsx
+
 *src/hooks/chat-modes/searchChatMode.ts
+
 *src/components/Option/Playground/PlaygroundForm.tsx
+
 *src/hooks/useMessageOption.tsx 
 
