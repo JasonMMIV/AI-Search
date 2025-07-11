@@ -11,7 +11,7 @@ export default defineConfig({
       provider: "local",
     },
     editLink: {
-      pattern: "https://github.com/n4ze3m/page-assist/edit/main/docs/:path",
+      pattern: "https://github.com/JasonMMIV/AI-Search/edit/main/docs/:path",
       text: "Edit this page on GitHub"
     },
     nav: [
@@ -116,7 +116,7 @@ export default defineConfig({
       }],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/n4ze3m/page-assist' },
+      { icon: 'github', link: 'https://github.com/JasonMMIV/AI-Search' },
       { icon: 'x', link: 'https://x.com/page_assist' },
       { icon: 'discord', link: 'https://discord.gg/bu54382uBd' },
     ],

@@ -7,8 +7,7 @@ import OptionOllamaSettings from "./options-settings-ollama"
 import OptionShare from "./option-settings-share"
 import OptionKnowledgeBase from "./option-settings-knowledge"
 import OptionAbout from "./option-settings-about"
-import SidepanelChat from "./sidepanel-chat"
-import SidepanelSettings from "./sidepanel-settings"
+
 import OptionRagSettings from "./option-rag"
 import OptionChrome from "./option-settings-chrome"
 import OptionOpenAI from "./option-settings-openai"
@@ -31,11 +30,4 @@ export const OptionRoutingChrome = () => {
   )
 }
 
-export const SidepanelRoutingChrome = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<SidepanelChat />} />
-      <Route path="/settings" element={<SidepanelSettings />} />
-    </Routes>
-  )
-}
+

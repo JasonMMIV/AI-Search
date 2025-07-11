@@ -54,7 +54,7 @@ want more features? Create an issue and let me know.
 1. Clone the repository
 
 ```bash
-git clone https://github.com/n4ze3m/page-assist.git
+git clone https://github.com/JasonMMIV/AI-Search.git
 cd page-assist
 ```
 

@@ -113,7 +113,7 @@ export const PlaygroundEmpty = () => {
                       components={{
                         anchor: (
                           <a
-                            href="https://github.com/n4ze3m/page-assist/blob/main/docs/connection-issue.md"
+                            href="https://github.com/JasonMMIV/AI-Search/blob/main/docs/connection-issue.md"
                             target="__blank"
                             className="text-blue-600 dark:text-blue-400"></a>
                         )

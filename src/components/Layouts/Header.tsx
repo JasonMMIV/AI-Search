@@ -232,7 +232,7 @@ export const Header: React.FC<Props> = ({
             )}
             <Tooltip title={t("githubRepository")}>
               <a
-                href="https://github.com/n4ze3m/page-assist"
+                href="https://github.com/JasonMMIV/AI-Search"
                 target="_blank"
                 className="!text-gray-500 hidden lg:block dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
                 <GithubIcon className="w-6 h-6" />

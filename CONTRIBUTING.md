@@ -6,7 +6,7 @@ Thank you for your interest in contributing to Page Assist! We welcome contribut
 
 1. **Fork the repository**
 
-   To start contributing, you'll need to fork the [Page Assist repository](https://github.com/n4ze3m/page-assist) by clicking the "Fork" button at the top right of the page.
+   To start contributing, you'll need to fork the [AI Search repository](https://github.com/JasonMMIV/AI-Search) by clicking the "Fork" button at the top right of the page.
 
 2. **Clone your forked repository**
 

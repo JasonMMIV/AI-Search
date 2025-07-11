@@ -2,7 +2,7 @@
   "name": "ai-search",
   "displayName": "AI Search",
   "version": "1.0",
-  "description": "Use your locally running AI models to assist you in your web browsing.",
+  "description": "Advance AI search tool.",
   "author": "n4ze3m",
   "scripts": {
     "dev": "cross-env TARGET=chrome wxt",
