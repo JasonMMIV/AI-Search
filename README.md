@@ -1,4 +1,4 @@
-AI Search
+__AI Search__
 
 An advanced AI search tool based on Page Assist
 
