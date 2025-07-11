@@ -120,7 +120,9 @@ export class DatabaseMigration {
       // Migrate knowledge
       try {
         const knowledges = await getAllKnowledge()
-        await this.dexieDBK.importDataV2(knowledges)
+        if (knowledges) {
+          await this.dexieDBK.importDataV2(knowledges)
+        }
       } catch (error) {
         errors.push(`Failed to migrate knowledge: ${error}`)
       }
@@ -128,8 +130,10 @@ export class DatabaseMigration {
       // Migrate OpenAI config
       try {
         const configs = await getAllOpenAIConfig()
-        await this.dexieDBOAI.importDataV2(configs)
-      } catch(error) {
+        if (configs) {
+          await this.dexieDBOAI.importDataV2(configs)
+        }
+      } catch (error) {
         errors.push(`Failed to migrate OAI: ${error}`)
       }
 
@@ -137,24 +141,30 @@ export class DatabaseMigration {
 
       try {
         const models = await getAllModelsExT()
-        await this.dexieDBM.importDataV2(models)
-      } catch(error) {
+        if (models) {
+          await this.dexieDBM.importDataV2(models)
+        }
+      } catch (error) {
         errors.push(`Failed to migrate OAI: ${error}`)
       }
 
       // Migrate vector
       try {
         const vectors = await getAllVector()
-        await this.dexieDBV.saveImportedDataV2(vectors)
+        if (vectors) {
+          await this.dexieDBV.saveImportedDataV2(vectors)
+        }
       } catch (error) {
         errors.push(`Failed to migrate knowledge: ${error}`)
       }
 
-     // Migrate nickname
+      // Migrate nickname
       try {
         console.log("Saving Nickname")
         const nicknames = await getAllModelNicknamesMig()
-        await this.dexieNick.importDataV2(nicknames)
+        if (nicknames) {
+          await this.dexieNick.importDataV2(nicknames)
+        }
       } catch (error) {
         errors.push(`Failed to migrate nick: ${error}`)
       }

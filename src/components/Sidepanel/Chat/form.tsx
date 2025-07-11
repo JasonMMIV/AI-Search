@@ -4,7 +4,7 @@ import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { useMessage } from "~/hooks/useMessage"
 import { toBase64 } from "~/libs/to-base64"
-import { Checkbox, Dropdown, Image, Switch, Tooltip } from "antd"
+import { Checkbox, Dropdown, Image, Switch, Tooltip, Input } from "antd"
 import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/ollama"
 import {
@@ -22,6 +22,7 @@ import { PiGlobeX, PiGlobe } from "react-icons/pi"
 import { handleChatInputKeyDown } from "@/utils/key-down"
 import { getIsSimpleInternetSearch } from "@/services/search"
 import { useStorage } from "@plasmohq/storage/hook"
+import { useStoreMessage } from "~/store"
 
 type Props = {
   dropedFile: File | undefined
@@ -37,6 +38,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     "chatWithWebsiteEmbedding",
     true
   )
+  const { customSearchKeyword, setCustomSearchKeyword } = useStoreMessage()
   const form = useForm({
     initialValues: {
       message: "",
@@ -332,6 +334,14 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                       placeholder={t("form.textarea.placeholder")}
                       {...form.getInputProps("message")}
                     />
+                    {webSearch && (
+                      <Input
+                        placeholder="Custom search keyword..."
+                        value={customSearchKeyword}
+                        onChange={(e) => setCustomSearchKeyword(e.target.value)}
+                        className="my-2"
+                      />
+                    )}
                     <div className="flex mt-4 justify-end gap-3">
                       {chatMode !== "vision" && (
                         <Tooltip title={t("tooltip.searchInternet")}>

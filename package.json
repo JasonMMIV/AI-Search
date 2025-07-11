@@ -1,7 +1,7 @@
 {
-  "name": "pageassist",
-  "displayName": "Page Assist - A Web UI for Local AI Models",
-  "version": "1.0.9",
+  "name": "ai-search",
+  "displayName": "AI Search",
+  "version": "1.0",
   "description": "Use your locally running AI models to assist you in your web browsing.",
   "author": "n4ze3m",
   "scripts": {
@@ -9,16 +9,16 @@
     "dev:firefox": "cross-env TARGET=firefox wxt -b firefox",
     "dev:edge": "cross-env TARGET=chrome wxt -b edge",
     "build": "bun build:chrome; bun build:firefox; bun build:edge",
-    "build:chrome": "cross-env TARGET=chrome wxt build",
-    "build:firefox": "cross-env TARGET=firefox wxt build -b firefox",
-    "build:edge": "cross-env TARGET=chrome wxt build -b edge",
+    "build:chrome": "node ./node_modules/cross-env/src/bin/cross-env.js TARGET=chrome wxt build",
+    "build:firefox": "node ./node_modules/cross-env/src/bin/cross-env.js TARGET=firefox wxt build -b firefox",
+    "build:edge": "node ./node_modules/cross-env/src/bin/cross-env.js TARGET=chrome wxt build -b edge",
     "zip": "cross-env TARGET=chrome wxt zip",
     "zip:firefox": "cross-env TARGET=firefox wxt zip -b firefox",
     "compile": "tsc --noEmit",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "postinstall": "wxt prepare"
+    "postinstall": "node ./node_modules/wxt/bin/wxt.mjs prepare"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.18.4",

@@ -2,11 +2,11 @@ export default defineContentScript({
   main(ctx) {
     const downloadModel = async (modelName: string) => {
       const ok = confirm(
-        `[Page Assist Extension] Do you want to pull the ${modelName} model? This has nothing to do with the huggingface.co website. The model will be pulled locally once you confirm. Make sure Ollama is running.`
+        `[AI Search Extension] Do you want to pull the ${modelName} model? This has nothing to do with the huggingface.co website. The model will be pulled locally once you confirm. Make sure Ollama is running.`
       )
       if (ok) {
         alert(
-          `[Page Assist Extension] Pulling ${modelName} model. For more details, check the extension icon.`
+          `[AI Search Extension] Pulling ${modelName} model. For more details, check the extension icon.`
         )
 
         await browser.runtime.sendMessage({
@@ -29,48 +29,12 @@ export default defineContentScript({
       const copyButton = modal.querySelector(
         'button[title="Copy snippet to clipboard"]'
       )
-      
-      if (!copyButton && !modal.querySelector(".pageassist-download-button")) {
-        const downloadButton = document.createElement("button")
-        downloadButton.classList.add("pageassist-download-button", "focus:outline-hidden", "inline-flex", "cursor-pointer", "items-center", "text-sm", "bg-white", "shadow-xs", "rounded-md", "border", "px-2", "py-1", "text-gray-600")
-        downloadButton.title = "Pull from Page Assist"
-        downloadButton.innerHTML = `${downloadSVG} <span class="ml-1.5">Pull from Page Assist</span>`
-        
-        downloadButton.addEventListener("click", async () => {
-          const preElement = modal.querySelector("pre")
-          if (preElement) {
-            const modelCommand = preElement.textContent?.trim() || ""
-            
-            if (modelCommand.includes("ollama run") || modelCommand.includes("ollama pull")) {
-              const lines = modelCommand.split('\n')
-              const ollamaLine = lines.find(line => 
-                line.trim().startsWith("ollama run") || line.trim().startsWith("ollama pull")
-              )
-              
-              if (ollamaLine) {
-                await downloadModel(
-                  ollamaLine
-                    .trim()
-                    .replaceAll("ollama run", "")
-                    .replaceAll("ollama pull", "")
-                    .trim()
-                )
-              }
-            }
-          }
-        })
-        
-        modal.appendChild(downloadButton)
-        return
-      }
-      
-      // Original logic for complex modals
       if (copyButton && !modal.querySelector(".pageassist-download-button")) {
         const downloadButton = copyButton.cloneNode(true) as HTMLElement
         downloadButton.classList.add("pageassist-download-button")
         downloadButton.querySelector("svg")!.outerHTML = downloadSVG
         downloadButton.querySelector("span")!.textContent =
-          "Pull from Page Assist"
+          "Pull from AI Search"
         downloadButton.addEventListener("click", async () => {
           const preElement = modal.querySelector("pre")
           if (preElement) {
@@ -94,22 +58,12 @@ export default defineContentScript({
 
             modelCommand = modelCommand.trim()
 
-            if (modelCommand.includes("ollama run") || modelCommand.includes("ollama pull")) {
-              const lines = modelCommand.split('\n')
-              const ollamaLine = lines.find(line => 
-                line.trim().startsWith("ollama run") || line.trim().startsWith("ollama pull")
-              )
-              
-              if (ollamaLine) {
-                await downloadModel(
-                  ollamaLine
-                    .trim()
-                    .replaceAll("ollama run", "")
-                    .replaceAll("ollama pull", "")
-                    .trim()
-                )
-              }
-            }
+            await downloadModel(
+              modelCommand
+                ?.replaceAll("ollama run", "")
+                ?.replaceAll("ollama pull", "")
+                ?.trim()
+            )
           }
         })
         const buttonContainer = document.createElement('div')
@@ -121,54 +75,20 @@ export default defineContentScript({
       }
     }
 
-    const checkForOllamaCommands = (element: HTMLElement) => {
-      const modal = element.querySelector(".shadow-alternate") as HTMLElement
-      if (modal) {
-        injectDownloadButton(modal)
-        return
-      }
-      const preElements = element.querySelectorAll("pre")
-      preElements.forEach((preElement) => {
-        const text = preElement.textContent || ""
-        if ((text.includes("ollama run") || text.includes("ollama pull")) && 
-            !preElement.parentElement?.querySelector(".pageassist-download-button")) {
-          const container = preElement.closest("div")
-          const copyButton = container?.querySelector('button[title="Copy snippet to clipboard"]')
-          
-          if (copyButton) {
-            const mockModal = document.createElement("div")
-            mockModal.appendChild(preElement.cloneNode(true))
-            
-            injectDownloadButton(mockModal)
-            
-            const downloadButton = mockModal.querySelector(".pageassist-download-button")
-            if (downloadButton) {
-              const buttonContainer = document.createElement('div')
-              buttonContainer.classList.add("mb-3")
-              buttonContainer.style.display = 'flex'
-              buttonContainer.style.justifyContent = 'flex-end'
-              buttonContainer.appendChild(downloadButton)
-              
-              preElement.insertAdjacentElement("afterend", buttonContainer)
-            }
-          }
-        }
-      })
-    }
-
     const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         mutation.addedNodes.forEach((node) => {
           if (node instanceof HTMLElement) {
-            checkForOllamaCommands(node)
+            const modal = node.querySelector(".shadow-alternate") as HTMLElement
+            if (modal) {
+              injectDownloadButton(modal)
+            }
           }
         })
       }
     })
 
     observer.observe(document.body, { childList: true, subtree: true })
-    
-    checkForOllamaCommands(document.body)
   },
   allFrames: true,
   matches: ["*://huggingface.co/*"]

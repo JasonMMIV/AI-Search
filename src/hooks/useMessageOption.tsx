@@ -1,6 +1,5 @@
 import React from "react"
-import { type ChatHistory, type Message } from "~/store/option"
-import { useStoreMessageOption } from "~/store/option"
+import { type ChatHistory, type Message, useStoreMessageOption } from "~/store/option"
 import { removeMessageUsingHistoryId } from "@/db/dexie/helpers"
 import { useNavigate } from "react-router-dom"
 import { notification } from "antd"
@@ -54,6 +53,7 @@ export const useMessageOption = () => {
     setChatMode,
     webSearch,
     setWebSearch,
+    searchMode, // <--- 【修改 1】: 引入新的 searchMode 狀態
     isSearchingInternet,
     setIsSearchingInternet,
     selectedQuickPrompt,
@@ -299,7 +299,8 @@ export const useMessageOption = () => {
           chatModeParams
         )
       } else {
-        if (webSearch) {
+        // --- 【修改 2】: 使用 searchMode 來決定呼叫哪個聊天模式 ---
+        if (searchMode !== 'chat') {
           await searchChatMode(
             message,
             image,

@@ -95,11 +95,6 @@ export const pageAssistModel = async ({
       await urlRewriteRuntime(providerInfo.baseUrl || "")
     }
 
-    if (providerInfo?.fix_cors) {
-      console.log("Fixing CORS for provider:", providerInfo.provider)
-      await urlRewriteRuntime(providerInfo.baseUrl || "")
-    }
-
     const modelConfig = {
       maxTokens: modelSettings?.numPredict || numPredict,
       temperature: modelSettings?.temperature || temperature,
@@ -136,7 +131,7 @@ export const pageAssistModel = async ({
           baseURL: providerInfo.baseUrl || "",
           defaultHeaders: {
             "HTTP-Referer": "https://pageassist.xyz/",
-            "X-Title": "Page Assist",
+            "X-Title": "AI Search",
             ...getCustomHeaders({
               headers: providerInfo?.headers || []
             })
@@ -145,7 +140,6 @@ export const pageAssistModel = async ({
         reasoning_effort: modelConfig?.reasoningEffort as any
       }) as any
     }
-
 
     return new CustomChatOpenAI({
       modelName: modelInfo.model_id,

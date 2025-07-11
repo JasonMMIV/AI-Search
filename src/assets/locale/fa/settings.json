@@ -340,12 +340,8 @@
   "about": {
     "title": "درباره",
     "heading": "درباره",
-    "chromeVersion": "نسخه دستیار صفحه",
-    "ollamaVersion": "نسخه Ollama",
-    "support": "شما می توانید با کمک مالی یا حمایت مالی از طریق پلتفرم های زیر از پروژه Page Assist حمایت کنید:",
-    "koFi": "پشتیبانی در Ko-fi",
-    "githubSponsor": "حمایت مالی در GitHub",
-    "githubRepo": "مخزن GitHub"
+    "chromeVersion": "AI Search نسخه",
+    "ollamaVersion": "نسخه Ollama"
   },
   "manageKnowledge": {
     "title": "مدیریت دانش",

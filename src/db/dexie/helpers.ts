@@ -16,7 +16,6 @@ import {
   LastUsedModelType
 } from "./types";
 import { PageAssistDatabase } from "./chat";
-import { db as chatDB } from './schema';
 
 // Helper function to generate IDs (keeping the same format)
 export const generateID = () => {
@@ -160,11 +159,23 @@ export const deleteByHistoryId = async (history_id: string) => {
 };
 
 export const updateHistory = async (id: string, title: string) => {
-  await chatDB.chatHistories.update(id, { title });
+  const db = new PageAssistDatabase();
+  const chatHistories = await db.getChatHistories();
+  const historyToUpdate = chatHistories.find(h => h.id === id);
+  if (historyToUpdate) {
+    await db.deleteChatHistory(id);
+    await db.addChatHistory({ ...historyToUpdate, title });
+  }
 };
 
 export const pinHistory = async (id: string, is_pinned: boolean) => {
-  await chatDB.chatHistories.update(id, { is_pinned });  
+  const db = new PageAssistDatabase();
+  const chatHistories = await db.getChatHistories();
+  const historyToUpdate = chatHistories.find(h => h.id === id);
+  if (historyToUpdate) {
+    await db.deleteChatHistory(id);
+    await db.addChatHistory({ ...historyToUpdate, is_pinned });
+  }
 };
 
 export const removeMessageUsingHistoryId = async (history_id: string) => {

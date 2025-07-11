@@ -377,12 +377,8 @@
   "about": {
     "title": "關於",
     "heading": "關於",
-    "chromeVersion": "Page Assist 版本",
-    "ollamaVersion": "Ollama 版本",
-    "support": "您可以透過以下平台捐款或贊助來支持 Page Assist 計畫：",
-    "koFi": "在 Ko-fi 上支持",
-    "githubSponsor": "在 GitHub 上支持",
-    "githubRepo": "GitHub Repository"
+    "chromeVersion": "AI Search 版本",
+    "ollamaVersion": "Ollama 版本"
   },
   "manageKnowledge": {
     "title": "知識管理",

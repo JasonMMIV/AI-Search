@@ -154,42 +154,6 @@
       "chatBackgroundImage": {
         "label": "Chat Background Image"
       }
-    },
-    "tts": {
-      "heading": "Text-to-Speech Settings",
-      "ttsEnabled": {
-        "label": "Enable Text-to-Speech"
-      },
-      "ttsAutoPlay": {
-        "label": "Auto play voice response after completion"
-      },
-      "ttsProvider": {
-        "label": "Text-to-Speech Provider",
-        "placeholder": "Select a provider"
-      },
-      "ttsVoice": {
-        "label": "Text-to-Speech Voice",
-        "placeholder": "Select a voice"
-      },
-      "ssmlEnabled": {
-        "label": "Enable SSML (Speech Synthesis Markup Language)"
-      },
-      "responseSplitting": {
-        "label": "Response Splitting"
-      },
-      "removeReasoningTagTTS": {
-        "label": "Remove Reasoning Tag from TTS"
-      }
-    },
-    "stt": {
-      "heading": "Speech-to-Text Settings",
-      "autoStopTimeout": {
-        "label": "Auto Stop Timeout (ms)",
-        "placeholder": "Enter auto-stop timeout in milliseconds"
-      },
-      "autoSubmitVoiceMessage": {
-        "label": "Auto Submit Voice Message"
-      }
     }
   },
   "manageModels": {
@@ -379,12 +343,8 @@
   "about": {
     "title": "About",
     "heading": "About",
-    "chromeVersion": "Page Assist Version",
-    "ollamaVersion": "Ollama Version",
-    "support": "You can support the Page Assist project by donating or sponsoring through the following platforms:",
-    "koFi": "Support on Ko-fi",
-    "githubSponsor": "Sponsor on GitHub",
-    "githubRepo": "GitHub Repository"
+    "chromeVersion": "AI Search Version",
+    "ollamaVersion": "Ollama Version"
   },
   "manageKnowledge": {
     "title": "Manage Knowledge",
@@ -422,7 +382,7 @@
       },
       "splittingSeparator": {
         "label": "Separator",
-        "placeholder": "Enter Separator (e.g., \\n\\n)",
+        "placeholder": "Enter Separator (e.g., \n\n)",
         "required": "Please enter a separator"
       },
       "splittingStrategy": {

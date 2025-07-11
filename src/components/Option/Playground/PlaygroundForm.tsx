@@ -4,7 +4,7 @@ import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { toBase64 } from "~/libs/to-base64"
 import { useMessageOption } from "~/hooks/useMessageOption"
-import { Checkbox, Dropdown, Switch, Tooltip } from "antd"
+import { Checkbox, Dropdown, Switch, Tooltip, Input } from "antd"
 import { Image } from "antd"
 import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/ollama"
@@ -31,6 +31,8 @@ import { MentionsDropdown } from "./MentionsDropdown"
 import { DocumentChip } from "./DocumentChip"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { PASTED_TEXT_CHAR_LIMIT } from "@/utils/constant"
+import { useStoreMessage, SearchMode } from "~/store"
+
 type Props = {
   dropedFile: File | undefined
 }
@@ -42,6 +44,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   const [typing, setTyping] = React.useState<boolean>(false)
   const [checkWideMode] = useStorage("checkWideMode", false)
+  const { customSearchKeyword, setCustomSearchKeyword, searchMode, setSearchMode } = useStoreMessage()
   const {
     onSubmit,
     selectedModel,
@@ -118,13 +121,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   React.useEffect(() => {
     textAreaFocus()
     if (defaultInternetSearchOn) {
-      setWebSearch(true)
+      setSearchMode("internet")
     }
   }, [])
 
   React.useEffect(() => {
     if (defaultInternetSearchOn) {
-      setWebSearch(true)
+      setSearchMode("internet")
     }
   }, [defaultInternetSearchOn])
 
@@ -271,7 +274,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         return
       }
 
-      if (webSearch) {
+      if (searchMode !== "chat") {
         const simpleSearch = await getIsSimpleInternetSearch()
         if (!defaultEM && !simpleSearch) {
           form.setFieldError("message", t("formError.noEmbeddingModel"))
@@ -328,6 +331,46 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const stopListening = async () => {
     if (isListening) {
       stopSpeechRecognition()
+    }
+  }
+
+  // 搜尋模式選項
+  const searchModeOptions = [
+    { key: "chat", label: "Chat", icon: "💬" },
+    { key: "internet", label: "Internet", icon: "🌐" },
+    { key: "social", label: "Social", icon: "👥" },
+    { key: "academic", label: "Academic", icon: "🎓" },
+    { key: "x", label: "X", icon: "🐦" },
+    { key: "custom", label: "Custom Search", icon: "🔍" }
+  ]
+
+  const getCurrentSearchModeLabel = () => {
+    const mode = searchModeOptions.find(option => option.key === searchMode)
+    return mode ? `${mode.icon} ${mode.label}` : "💬 Chat"
+  }
+
+  const handleSearchModeChange = (mode: SearchMode) => {
+    setSearchMode(mode)
+    
+    // 清空自定義搜尋關鍵字
+    setCustomSearchKeyword("")
+    
+    // 根據模式設置預設關鍵字
+    switch (mode) {
+      case "social":
+        setCustomSearchKeyword("site:reddit.com")
+        break
+      case "academic":
+        setCustomSearchKeyword("site:sciencedirect.com")
+        break
+      case "x":
+        setCustomSearchKeyword("site:x.com")
+        break
+      case "custom":
+        setCustomSearchKeyword("")
+        break
+      default:
+        setCustomSearchKeyword("")
     }
   }
 
@@ -440,7 +483,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                     }
                     const defaultEM = await defaultEmbeddingModelForRag()
 
-                    if (webSearch) {
+                    if (searchMode !== "chat") {
                       const simpleSearch = await getIsSimpleInternetSearch()
                       if (!defaultEM && !simpleSearch) {
                         form.setFieldError(
@@ -552,6 +595,15 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                         onMentionsOpen={handleMentionsOpen}
                       />
                     </div>
+                    {(searchMode === "custom" || (searchMode !== "chat" && customSearchKeyword)) && (
+                      <Input
+                        placeholder="Custom search keyword..."
+                        value={customSearchKeyword}
+                        onChange={(e) => setCustomSearchKeyword(e.target.value)}
+                        className="my-2"
+                        disabled={searchMode === "social" || searchMode === "academic" || searchMode === "x"}
+                      />
+                    )}
                     <div className="mt-2 flex justify-between items-center">
                       <div className="flex">
                         {!selectedKnowledge && (
@@ -560,12 +612,30 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               <PiGlobe
                                 className={`h-5 w-5 dark:text-gray-300 `}
                               />
-                              <Switch
-                                value={webSearch}
-                                onChange={(e) => setWebSearch(e)}
-                                checkedChildren={t("form.webSearch.on")}
-                                unCheckedChildren={t("form.webSearch.off")}
-                              />
+                              <Dropdown
+                                menu={{
+                                  items: searchModeOptions.map((option) => ({
+                                    key: option.key,
+                                    label: (
+                                      <div 
+                                        className="flex items-center gap-2 cursor-pointer"
+                                        onClick={() => handleSearchModeChange(option.key as SearchMode)}
+                                      >
+                                        <span>{option.icon}</span>
+                                        <span>{option.label}</span>
+                                      </div>
+                                    )
+                                  }))
+                                }}
+                                trigger={['click']}
+                              >
+                                <button
+                                  type="button"
+                                  className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                                >
+                                  {getCurrentSearchModeLabel()}
+                                </button>
+                              </Dropdown>
                             </div>
                           </Tooltip>
                         )}

@@ -59,7 +59,7 @@ export class OpenAIModelDb {
 }
 
 
-export const addOpenAICofig = async ({ name, baseUrl, apiKey, provider, headers, fix_cors }: { name: string, baseUrl: string, apiKey: string, provider?: string, headers?: { key: string; value: string }[], fix_cors?: boolean }) => {
+export const addOpenAICofig = async ({ name, baseUrl, apiKey, provider, headers }: { name: string, baseUrl: string, apiKey: string, provider?: string, headers?: { key: string; value: string }[] }) => {
     const openaiDb = new OpenAIModelDb()
     const id = generateID()
     const config: OpenAIModelConfig = {
@@ -70,8 +70,7 @@ export const addOpenAICofig = async ({ name, baseUrl, apiKey, provider, headers,
         createdAt: Date.now(),
         db_type: "openai",
         provider,
-        headers,
-        fix_cors
+        headers
     }
     await openaiDb.create(config)
     return id
@@ -84,7 +83,7 @@ export const getAllOpenAIConfig = async () => {
     return configs.filter(config => config?.db_type === "openai")
 }
 
-export const updateOpenAIConfig = async ({ id, name, baseUrl, apiKey, headers, fix_cors }: { id: string, name: string, baseUrl: string, apiKey: string, headers?: { key: string; value: string }[], fix_cors?: boolean }) => {
+export const updateOpenAIConfig = async ({ id, name, baseUrl, apiKey, headers }: { id: string, name: string, baseUrl: string, apiKey: string, headers?: { key: string; value: string }[] }) => {
     const openaiDb = new OpenAIModelDb()
     const oldData = await openaiDb.getById(id)
     const config: OpenAIModelConfig = {
@@ -95,8 +94,7 @@ export const updateOpenAIConfig = async ({ id, name, baseUrl, apiKey, headers, f
         apiKey,
         createdAt: Date.now(),
         db_type: "openai",
-        headers: headers || [],
-        fix_cors: fix_cors
+        headers: headers || []
     }
 
     await openaiDb.update(config)

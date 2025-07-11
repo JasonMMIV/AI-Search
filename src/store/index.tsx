@@ -17,6 +17,9 @@ export type ChatHistory = {
   messageType?: string
 }[]
 
+// 新增搜尋模式類型
+export type SearchMode = "chat" | "internet" | "social" | "academic" | "x" | "custom"
+
 type State = {
   messages: Message[]
   setMessages: (messages: Message[]) => void
@@ -44,15 +47,23 @@ type State = {
   setCurrentURL: (currentURL: string) => void
   selectedSystemPrompt: string | null
   setSelectedSystemPrompt: (selectedSystemPrompt: string) => void
-
   selectedQuickPrompt: string | null
   setSelectedQuickPrompt: (selectedQuickPrompt: string) => void
-
   useOCR: boolean
   setUseOCR: (useOCR: boolean) => void
+  customSearchKeyword: string
+  setCustomSearchKeyword: (keyword: string) => void
+  
+  // 新增搜尋模式相關狀態
+  searchMode: SearchMode
+  setSearchMode: (searchMode: SearchMode) => void
+  
+  // 保留原有的 webSearch 以向後兼容
+  webSearch: boolean
+  setWebSearch: (webSearch: boolean) => void
 }
 
-export const useStoreMessage = create<State>((set) => ({
+export const useStoreMessage = create<State>((set, get) => ({
   messages: [],
   setMessages: (messages) => set({ messages }),
   history: [],
@@ -79,13 +90,33 @@ export const useStoreMessage = create<State>((set) => ({
     set({ speechToTextLanguage }),
   currentURL: "",
   setCurrentURL: (currentURL) => set({ currentURL }),
-
   selectedSystemPrompt: null,
   setSelectedSystemPrompt: (selectedSystemPrompt) =>
     set({ selectedSystemPrompt }),
   selectedQuickPrompt: null,
   setSelectedQuickPrompt: (selectedQuickPrompt) => set({ selectedQuickPrompt }),
-
   useOCR: false,
-  setUseOCR: (useOCR) => set({ useOCR })
+  setUseOCR: (useOCR) => set({ useOCR }),
+  customSearchKeyword: "",
+  setCustomSearchKeyword: (keyword) => set({ customSearchKeyword: keyword }),
+  
+  // 新增搜尋模式狀態
+  searchMode: "chat",
+  setSearchMode: (searchMode) => {
+    set({ searchMode })
+    // 同時更新 webSearch 狀態以保持向後兼容
+    set({ webSearch: searchMode !== "chat" })
+  },
+  
+  // 保留原有的 webSearch 邏輯
+  webSearch: false,
+  setWebSearch: (webSearch) => {
+    set({ webSearch })
+    // 當使用舊的 webSearch 時，同步更新 searchMode
+    if (webSearch && get().searchMode === "chat") {
+      set({ searchMode: "internet" })
+    } else if (!webSearch && get().searchMode !== "chat") {
+      set({ searchMode: "chat" })
+    }
+  }
 }))

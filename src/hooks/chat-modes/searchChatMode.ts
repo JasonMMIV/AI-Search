@@ -3,7 +3,7 @@ import {
   geWebSearchFollowUpPrompt,
   getOllamaURL
 } from "~/services/ollama"
-import { type ChatHistory, type Message } from "~/store/option"
+import { type ChatHistory, type Message, useStoreMessage, type SearchMode } from "~/store"
 import { generateID } from "@/db/dexie/helpers"
 import { getSystemPromptForWeb, isQueryHaveWebsite } from "~/web/web"
 import { generateHistory } from "@/utils/generate-history"
@@ -54,6 +54,10 @@ export const searchChatMode = async (
   }
 ) => {
   console.log("Using searchChatMode")
+  
+  // 獲取當前的搜索模式和自定義關鍵字
+  const { searchMode, customSearchKeyword } = useStoreMessage.getState()
+  
   const url = await getOllamaURL()
   if (image.length > 0) {
     image = `data:image/jpeg;base64,${image.split(",")[1]}`
@@ -111,6 +115,30 @@ export const searchChatMode = async (
     setIsSearchingInternet(true)
 
     let query = message
+    
+    // 根據搜索模式構建最終的搜索查詢
+    let finalSearchKeyword = ""
+    
+    switch (searchMode) {
+      case "internet":
+        // 純網路搜索，不添加額外關鍵字
+        finalSearchKeyword = ""
+        break
+      case "social":
+        finalSearchKeyword = "site:reddit.com"
+        break
+      case "academic":
+        finalSearchKeyword = "site:sciencedirect.com"
+        break
+      case "x":
+        finalSearchKeyword = "site:x.com"
+        break
+      case "custom":
+        finalSearchKeyword = customSearchKeyword || ""
+        break
+      default:
+        finalSearchKeyword = customSearchKeyword || ""
+    }
 
     let questionPrompt = await geWebSearchFollowUpPrompt()
     const lastTenMessages = newMessage.slice(-10)
@@ -155,6 +183,7 @@ export const searchChatMode = async (
         useOCR: useOCR
       })
     }
+    
     try {
       const isWebQuery = await isQueryHaveWebsite(query)
       if (!isWebQuery) {
@@ -165,11 +194,16 @@ export const searchChatMode = async (
     } catch (error) {
       console.error("Error in questionModel.invoke:", error)
     }
-    // }
+    
+    // 將搜索關鍵字添加到查詢中
+    if (finalSearchKeyword && finalSearchKeyword.trim() !== "") {
+      query = `${query} ${finalSearchKeyword.trim()}`
+    }
+
+    console.log(`Search mode: ${searchMode}, Final query: ${query}`)
 
     const { prompt, source } = await getSystemPromptForWeb(query)
     setIsSearchingInternet(false)
-
 
     let humanMessage = await humanMessageFormatter({
       content: [

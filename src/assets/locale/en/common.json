@@ -1,5 +1,5 @@
 {
-    "pageAssist": "Page Assist",
+    "pageAssist": "AI Search",
     "selectAModel": "Select a Model",
     "save": "Save",
     "saved": "Saved",
@@ -186,7 +186,6 @@
     },
     "mermaid": "Mermaid",
     "search": "Search",
-    "searchResults": "Search Results",
     "embeddingGen": "Creating embeddings, this may take a while",
     "semanticSearch": "Performing semantic search",
     "newBranch": "New Branch"

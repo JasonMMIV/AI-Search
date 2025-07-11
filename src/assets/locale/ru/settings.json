@@ -344,12 +344,8 @@
   "about": {
     "title": "О программе",
     "heading": "О программе",
-    "chromeVersion": "Версия Page Assist",
-    "ollamaVersion": "Версия Ollama",
-    "support": "Вы можете поддержать проект Page Assist, сделав пожертвование или спонсорирование через следующие платформы:",
-    "koFi": "Поддержать на Ko-fi",
-    "githubSponsor": "Стать спонсором на GitHub",
-    "githubRepo": "Репозиторий GitHub"
+    "chromeVersion": "AI Search версия",
+    "ollamaVersion": "Версия Ollama"
   },
   "manageKnowledge": {
     "title": "Управление знаниями",

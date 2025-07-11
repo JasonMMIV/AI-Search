@@ -347,12 +347,8 @@
   "about": {
     "title": "About",
     "heading": "About",
-    "chromeVersion": "Page Assistのバージョン",
-    "ollamaVersion": "Ollamaのバージョン",
-    "support": "Page Assistプロジェクトは、以下のプラットフォームで寄付やスポンサーシップをすることで支援できます:",
-    "koFi": "Ko-fiで支援する",
-    "githubSponsor": "GitHubでスポンサーする",
-    "githubRepo": "GitHubリポジトリ"
+    "chromeVersion": "AI Search バージョン",
+    "ollamaVersion": "Ollamaのバージョン"
   },
   "manageKnowledge": {
     "title": "知識を管理する",

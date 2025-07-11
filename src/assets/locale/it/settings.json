@@ -344,12 +344,8 @@
   "about": {
     "title": "Informazioni",
     "heading": "Informazioni",
-    "chromeVersion": "Versione di Page Assist",
-    "ollamaVersion": "Versione di Ollama",
-    "support": "Puoi supportare il progetto Page Assist donando o sponsorizzando attraverso le seguenti piattaforme:",
-    "koFi": "Supporta su Ko-fi",
-    "githubSponsor": "Sponsorizza su GitHub",
-    "githubRepo": "Repository GitHub"
+    "chromeVersion": "AI Search Versione",
+    "ollamaVersion": "Versione di Ollama"
   },
   "manageKnowledge": {
     "title": "Gestisci Conoscenza",

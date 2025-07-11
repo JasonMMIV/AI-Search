@@ -4,11 +4,9 @@ import topLevelAwait from "vite-plugin-top-level-await"
 
 const chromeMV3Permissions = [
   "storage",
-  "sidePanel",
   "activeTab",
   "scripting",
   "declarativeNetRequest",
-  "action",
   "unlimitedStorage",
   "contextMenus",
   "tts",
@@ -51,7 +49,7 @@ export default defineConfig({
   outDir: "build",
 
   manifest: {
-    version: "1.5.21",
+    version: "1.0",
     name:
       process.env.TARGET === "firefox"
         ? "Page Assist - A Web UI for Local AI Models"
@@ -77,12 +75,6 @@ export default defineConfig({
         description: "Open the Web UI",
         suggested_key: {
           default: "Ctrl+Shift+L"
-        }
-      },
-      execute_side_panel: {
-        description: "Open the side panel",
-        suggested_key: {
-          default: "Ctrl+Shift+Y"
         }
       }
     },

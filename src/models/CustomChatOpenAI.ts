@@ -101,13 +101,13 @@ function _convertDeltaToMessageChunk(
     const role = delta.role ?? defaultRole
     const content = delta.content ?? ""
     const reasoning_content: string | undefined | null =
-        delta?.reasoning_content ?? delta?.reasoning ?? undefined
+        delta?.reasoning_content ?? undefined
     let additional_kwargs
-    if (delta?.function_call) {
+    if (delta.function_call) {
         additional_kwargs = {
             function_call: delta.function_call
         }
-    } else if (delta?.tool_calls) {
+    } else if (delta.tool_calls) {
         additional_kwargs = {
             tool_calls: delta.tool_calls
         }

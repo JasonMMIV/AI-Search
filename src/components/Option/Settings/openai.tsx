@@ -4,16 +4,7 @@
  * The component uses React Query to manage the state and perform CRUD operations on the OpenAI configurations.
  * It also includes a modal for fetching the available models from the selected OpenAI configuration.
  */
-import {
-  Form,
-  Input,
-  Modal,
-  Table,
-  message,
-  Tooltip,
-  Select,
-  Switch
-} from "antd"
+import { Form, Input, Modal, Table, message, Tooltip, Select } from "antd"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -27,7 +18,7 @@ import { Pencil, Trash2, DownloadIcon, Trash2Icon } from "lucide-react"
 import { OpenAIFetchModel } from "./openai-fetch-model"
 import { OAI_API_PROVIDERS } from "@/utils/oai-api-providers"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
-const noPopupProvider = ["lmstudio", "llamafile", "ollama2", "llamacpp", "vllm"]
+const noPopupProvider = ["lmstudio", "llamafile", "ollama2", "llamacpp"]
 
 export const OpenAIApp = () => {
   const { t } = useTranslation(["openai", "settings"])
@@ -43,6 +34,7 @@ export const OpenAIApp = () => {
     queryKey: ["openAIConfigs"],
     queryFn: getAllOpenAIConfig
   })
+
 
   const addMutation = useMutation({
     mutationFn: addOpenAICofig,
@@ -89,7 +81,6 @@ export const OpenAIApp = () => {
     name: string
     baseUrl: string
     apiKey: string
-    fix_cors?: boolean
     headers?: { key: string; value: string }[]
   }) => {
     if (editingConfig) {
@@ -112,8 +103,7 @@ export const OpenAIApp = () => {
     })
     form.setFieldsValue({
       ...record,
-      headers: record?.headers || [],
-      fix_cors: record?.fix_cors || false
+      headers: record?.headers || []
     })
     setOpen(true)
   }
@@ -306,16 +296,6 @@ export const OpenAIApp = () => {
                 placeholder={t("modal.apiKey.placeholder")}
               />
             </Form.Item>
-
-            <Form.Item
-              name="fix_cors"
-              label={t("modal.fixCors.label", {
-                defaultValue: "Fix CORS issues"
-              })}
-              valuePropName="checked">
-              <Switch />
-            </Form.Item>
-
             <Form.List name="headers">
               {(fields, { add, remove }) => (
                 <div className="flex flex-col ">

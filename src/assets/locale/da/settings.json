@@ -341,12 +341,8 @@
   "about": {
     "title": "Om",
     "heading": "Om",
-    "chromeVersion": "Page Assist Version",
-    "ollamaVersion": "Ollama Version",
-    "support": "Du kan støtte Page Assist-projektet ved at donere eller sponsorere via følgende platforme:",
-    "koFi": "Støt på Ko-fi",
-    "githubSponsor": "Sponsor på GitHub",
-    "githubRepo": "GitHub Repository"
+    "chromeVersion": "AI Search Version",
+    "ollamaVersion": "Ollama Version"
   },
   "manageKnowledge": {
     "title": "Administrer Viden",
