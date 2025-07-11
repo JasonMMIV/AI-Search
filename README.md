@@ -1,4 +1,5 @@
 AI Search
+
 An advanced AI search tool based on Page Assist
 
 With this tool, you can easily perform social search, academic search, X posts search or even custom search using your own LLMs.
