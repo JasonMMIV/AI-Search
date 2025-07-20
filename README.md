@@ -8,6 +8,8 @@ An advanced AI search tool based on Page Assist.
 
 With this tool, you can easily perform social search, academic search, X posts search or even custom search using your own LLMs.
 
+![Screenshot 2025-07-20 205120](https://github.com/user-attachments/assets/13d4e797-08bf-4deb-a464-b36529ab8158)
+
 ## Installation
 
 [![Chrome Web Store](https://pub-35424b4473484be483c0afa08c69e7da.r2.dev/UV4C4ybeBTsZt43U4xis.png)]()
