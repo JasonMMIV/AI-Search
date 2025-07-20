@@ -1,36 +1,33 @@
-# Privacy Policy
+# AI Search Privacy Policy
+**Effective Date: July 20, 2025**
 
-## Data Collection
-Page Assist is committed to user privacy and does not collect any user data. All operations and data storage occur locally within your browser.
+Thank you for using "AI Search," our Chrome extension! We are committed to protecting your privacy and providing a secure and transparent user experience.
 
-## Browser Permissions
-The extension requires the following permissions to function:
+**This extension does not collect any user data.**
 
-- **Notifications**: To provide system notifications
-- **Website Content Access**: Required for the chat-with-webpage functionality
-- **Unlimited Storage**: Used to store chat history locally in your browser
-- **Active Tab**: To ensure the extension is active on the current tab and get screenshots etc
-- **Scripting**: For the chat-with-webpage functionality
-- **Web Requests**: To modify headers of the local server to avoid CORS issues
+All data generated, stored, or modified by this extension is confined solely to your local Chrome browser. This means:
 
-## Page Share Feature
-When using the Page Share feature:
+* **No Data Collection:** We do not collect your Personally Identifiable Information (PII), Browse history, usage habits, or any other data about you.
+* **Data Transmission (User-Configured APIs): Your data will not be transmitted to our servers or any third-party servers operated by us. However, if you choose to configure and use your own Large Language Model (LLM) API or search API within the extension, certain usage data will be sent directly from your browser to those specific API endpoints as part of their normal operation. This data transmission is solely between your browser and the API service you have chosen to use.
+* **Completely Local Storage:** All extension settings, preferences, and any data related to the extension are stored exclusively within your local Chrome browser. When you remove the extension, this data will also be deleted from your browser.
+* **No Third-Party Tracking:** We do not use any third-party analytics tools, advertising trackers, or any services that might collect your data.
 
-- Data sharing only occurs when explicitly connecting to external sources
-- Self-hosting option is available for complete data control
-- Shared chats can be permanently deleted from the server at any time
-- No data is retained after deletion
+---
 
-## Data Storage
-- All chat history and settings are stored locally in your browser
-- No data is transmitted to external servers unless explicitly initiated by the user
-- Users maintain full control over their data
+## User Rights
+Since this extension does not collect any of your data, we cannot offer data access, correction, or deletion rights in the traditional sense. However, you have complete control over the data stored on your own device. You can delete all related data at any time by removing this extension.
 
-## Third-Party Services
-Page Assist does not integrate with any third-party analytics or tracking services.
+---
 
-## Changes to Privacy Policy
-We reserve the right to update this privacy policy as needed. Users will be notified of any significant changes.
+## Children's Privacy
+This extension is not directed at children under the age of 13. We do not knowingly collect any personal information from children.
 
-## Contact
-For privacy-related questions or concerns, please open an issue on our GitHub repository or mail me at me@n4ze3m.com
+---
+
+## Changes to This Policy
+This Privacy Policy may be updated from time to time. Any changes will be posted on this page. We recommend that you review this page periodically for any updates.
+
+---
+
+## Contact Us
+If you have any questions about this Privacy Policy, please contact us at jasn2004@gmail.com.
