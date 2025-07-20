@@ -4,7 +4,7 @@
 
 </p>
 
-An advanced AI search tool based on Page Assist.
+Use your favorite LLMs to perform advanced web search. A simple yet practical alternative to Perplexity and Felo.
 
 With this tool, you can easily perform social search, academic search, X posts search or even custom search using your own LLMs.
 
