@@ -8,7 +8,7 @@ Thank you for using "AI Search," our Chrome extension! We are committed to prote
 All data generated, stored, or modified by this extension is confined solely to your local Chrome browser. This means:
 
 * **No Data Collection:** We do not collect your Personally Identifiable Information (PII), Browse history, usage habits, or any other data about you.
-* **Data Transmission (User-Configured APIs): Your data will not be transmitted to our servers or any third-party servers operated by us. However, if you choose to configure and use your own Large Language Model (LLM) API or search API within the extension, certain usage data will be sent directly from your browser to those specific API endpoints as part of their normal operation. This data transmission is solely between your browser and the API service you have chosen to use.
+* **Data Transmission (User-Configured APIs): **Your data will not be transmitted to our servers or any third-party servers operated by us. However, if you choose to configure and use your own Large Language Model (LLM) API or search API within the extension, certain usage data will be sent directly from your browser to those specific API endpoints as part of their normal operation. This data transmission is solely between your browser and the API service you have chosen to use.
 * **Completely Local Storage:** All extension settings, preferences, and any data related to the extension are stored exclusively within your local Chrome browser. When you remove the extension, this data will also be deleted from your browser.
 * **No Third-Party Tracking:** We do not use any third-party analytics tools, advertising trackers, or any services that might collect your data.
 
