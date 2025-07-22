@@ -12,7 +12,7 @@ With this tool, you can easily perform social search, academic search, X posts s
 
 ## Installation
 
-[![Chrome Web Store](https://pub-35424b4473484be483c0afa08c69e7da.r2.dev/UV4C4ybeBTsZt43U4xis.png)]()
+[![Chrome Web Store](https://pub-35424b4473484be483c0afa08c69e7da.r2.dev/UV4C4ybeBTsZt43U4xis.png)](https://chromewebstore.google.com/detail/ai-search/pgeladhpkenagnakgfbidhfbceiejodo)
 
 ### Manual Installation
 
