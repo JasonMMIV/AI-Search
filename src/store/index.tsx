@@ -100,23 +100,27 @@ export const useStoreMessage = create<State>((set, get) => ({
   customSearchKeyword: "",
   setCustomSearchKeyword: (keyword) => set({ customSearchKeyword: keyword }),
   
-  // 新增搜尋模式狀態
+  // --- 開始偵錯 ---
   searchMode: "chat",
-  setSearchMode: (searchMode) => {
-    set({ searchMode })
-    // 同時更新 webSearch 狀態以保持向後兼容
-    set({ webSearch: searchMode !== "chat" })
+  setSearchMode: (newMode) => {
+    console.log(`%c[STORE] setSearchMode called. New mode: "${newMode}"`, 'color: blue; font-weight: bold;');
+    console.trace("Trace for setSearchMode");
+    set({ searchMode: newMode });
+    set({ webSearch: newMode !== "chat" });
   },
   
-  // 保留原有的 webSearch 邏輯
   webSearch: false,
-  setWebSearch: (webSearch) => {
-    set({ webSearch })
-    // 當使用舊的 webSearch 時，同步更新 searchMode
-    if (webSearch && get().searchMode === "chat") {
-      set({ searchMode: "internet" })
-    } else if (!webSearch && get().searchMode !== "chat") {
-      set({ searchMode: "chat" })
+  setWebSearch: (newWebSearch) => {
+    console.log(`%c[STORE] setWebSearch called. New value: ${newWebSearch}`, 'color: red; font-weight: bold;');
+    console.trace("Trace for setWebSearch");
+    set({ webSearch: newWebSearch });
+    if (newWebSearch && get().searchMode === "chat") {
+      console.log('%c[STORE] Side effect triggered: webSearch is true, forcing searchMode to "internet"', 'color: orange;');
+      set({ searchMode: "internet" });
+    } else if (!newWebSearch && get().searchMode !== "chat") {
+      console.log('%c[STORE] Side effect triggered: webSearch is false, forcing searchMode to "chat"', 'color: orange;');
+      set({ searchMode: "chat" });
     }
   }
+  // --- 結束偵錯 ---
 }))

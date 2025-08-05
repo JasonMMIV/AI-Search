@@ -1,4 +1,5 @@
 import React from "react"
+import { useStoreMessage } from "~/store"
 import { type ChatHistory, type Message, useStoreMessageOption } from "~/store/option"
 import { removeMessageUsingHistoryId } from "@/db/dexie/helpers"
 import { useNavigate } from "react-router-dom"
@@ -53,7 +54,6 @@ export const useMessageOption = () => {
     setChatMode,
     webSearch,
     setWebSearch,
-    searchMode, // <--- 【修改 1】: 引入新的 searchMode 狀態
     isSearchingInternet,
     setIsSearchingInternet,
     selectedQuickPrompt,
@@ -251,7 +251,7 @@ export const useMessageOption = () => {
         )
         return
       }
-      // console.log("contextFiles", contextFiles)
+
       if (contextFiles.length > 0) {
         await documentChatMode(
           message,
@@ -263,7 +263,6 @@ export const useMessageOption = () => {
           contextFiles,
           chatModeParams
         )
-        // setFileRetrievalEnabled(false)
         return
       }
 
@@ -299,8 +298,10 @@ export const useMessageOption = () => {
           chatModeParams
         )
       } else {
-        // --- 【修改 2】: 使用 searchMode 來決定呼叫哪個聊天模式 ---
-        if (searchMode !== 'chat') {
+        // Get the latest state directly from the store at the moment of execution
+        const currentSearchMode = useStoreMessage.getState().searchMode
+
+        if (currentSearchMode !== 'chat') {
           await searchChatMode(
             message,
             image,
@@ -311,7 +312,6 @@ export const useMessageOption = () => {
             chatModeParams
           )
         } else {
-          // Include uploaded files info even in normal mode
           const enhancedChatModeParams = {
             ...chatModeParams,
             uploadedFiles: uploadedFiles

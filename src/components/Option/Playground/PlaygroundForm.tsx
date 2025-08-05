@@ -340,13 +340,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     { key: "internet", label: "Internet", icon: "🌐" },
     { key: "social", label: "Social", icon: "👥" },
     { key: "academic", label: "Academic", icon: "🎓" },
-    { key: "x", label: "X", icon: "🐦" },
+    { key: "x", label: "X", icon: <X className="h-4 w-4" /> },
     { key: "custom", label: "Custom Search", icon: "🔍" }
   ]
 
   const getCurrentSearchModeLabel = () => {
     const mode = searchModeOptions.find(option => option.key === searchMode)
-    return mode ? `${mode.icon} ${mode.label}` : "💬 Chat"
+    return mode ? <div className="flex items-center gap-2">{typeof mode.icon === 'string' ? <span>{mode.icon}</span> : mode.icon}<span>{mode.label}</span></div> : <div className="flex items-center gap-2"><span>💬</span><span>Chat</span></div>
   }
 
   const handleSearchModeChange = (mode: SearchMode) => {
@@ -609,9 +609,6 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                         {!selectedKnowledge && (
                           <Tooltip title={t("tooltip.searchInternet")}>
                             <div className="inline-flex items-center gap-2">
-                              <PiGlobe
-                                className={`h-5 w-5 dark:text-gray-300 `}
-                              />
                               <Dropdown
                                 menu={{
                                   items: searchModeOptions.map((option) => ({
@@ -621,7 +618,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                         className="flex items-center gap-2 cursor-pointer"
                                         onClick={() => handleSearchModeChange(option.key as SearchMode)}
                                       >
-                                        <span>{option.icon}</span>
+                                        {typeof option.icon === 'string' ? <span>{option.icon}</span> : option.icon}
                                         <span>{option.label}</span>
                                       </div>
                                     )

@@ -49,7 +49,7 @@ export default defineConfig({
   outDir: "build",
 
   manifest: {
-    version: "1.0",
+    version: "1.6",
     name:
       process.env.TARGET === "firefox"
         ? "Page Assist - A Web UI for Local AI Models"
